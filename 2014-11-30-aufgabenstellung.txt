@@ -1,0 +1,27 @@
+Dear valued students, 
+
+
+please find enclosed a description of the semantic web service project. The project will be graded and will be worth 30% of the whole grade. 
+
+
+Project: Your task is to build  a website using the learned Semantic Web technologies or a semantic search system based on some existing tool such as Jena
+
+2 students form one group, or you can also work alone
+Select one interesting domain or problem, building up one ontology using RDF to represent your data
+Discuss with me your proposal before starting the implementation 
+Submit by the 12th of December a document describing your application, the earlier the better 
+Once you get the approval, you should start with the implementation
+Setting up a running website which is able to display and query data
+Or creating a semantic search system by using Jena reasoning supports
+Expected Result:
+
+Presentation and demo (individual): present your contribution in this project (End of January).
+Project report (group): write the report together and state clearly the contribution from each team member. It should be 4-6 pages in Springer LNCS format.
+Deadline for submitting the report and a link to your application will be 20th of January. 
+Tools to be used: 
+You can use any APIs that could support your work, e.g. Jena https://jena.apache.org/https://jena.apache.org/
+If you have any inquiries, please do not hesitate to contact me. 
+
+Best regards
+
+Slim 
