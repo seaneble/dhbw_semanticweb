@@ -1,0 +1,21 @@
+\begin{thebibliography}{1}
+
+\bibitem{Agirre95}
+Agirre, E., Rigau, G.:
+\newblock A proposal for word sense disambiguation using conceptual distance.
+\newblock In: Proceedings of the 1st International Conference on Recent
+  Advances in Natural Language Processing, Velingrad (1995)
+
+\bibitem{Aha94}
+Aha, D., Bankert, R.:
+\newblock Feature selection for case-based classification of cloud types: An
+  empirical comparison.
+\newblock In: Proceedings of the AAAI'94 Workshop on CaseBased Reasoning,
+  Seattle, WA (1994)  106--112
+
+\bibitem{Almubaid02}
+Al-Mubaid, H., Truemper, K.
+\newblock In: Learning to find context-based spelling errors. Kluwer Academic
+  Publishers (2002) forthcoming.
+
+\end{thebibliography}
