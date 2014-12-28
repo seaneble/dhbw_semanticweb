@@ -4,7 +4,7 @@ Domain überlegen
 ------------
 Datenquelle finden
 - DBPedia
-- ?
+- http://www.linkedmdb.org/
 
 ------------
 Detaillierte Funktionsangabe
@@ -15,7 +15,8 @@ Liste mit Hauptkomponenten und Aufwand
 
 zum Ablauf: http://stackoverflow.com/a/7489613
 
-- Triple Store (provides parts of DBPedia data); http://en.wikipedia.org/wiki/List_of_subject-predicate-object_databases
+- Triple Store (manages only parts of DBPedia data); http://en.wikipedia.org/wiki/List_of_subject-predicate-object_databases
+
 	- TDB (Storage) + Fuseki (Endpoint) {both part of Jena}
 	- 4store
 		General: http://www.4store.org/
@@ -23,9 +24,11 @@ zum Ablauf: http://stackoverflow.com/a/7489613
 		General: http://virtuoso.openlinksw.com/
 		Setup: http://joernhees.de/blog/2010/10/31/setting-up-a-local-dbpedia-mirror-with-virtuoso/
 
-	alternative: use DBPedia SPARQL endpoint directly (maybe too simple)
+	alternative: use DBPedia SPARQL endpoint directly (maybe too simple): http://blog.3kbo.com/2008/08/11/dbpedia-examples-using-linked-data-and-sparql/
 
 - Querying (SPARQL)
 	- ARQ -> Java (if using Jena framework)
 	- cli (if using 4store)
 	- nearly any language (if using Virtuoso)
+
+	(http://stackoverflow.com/questions/18788134/get-movies-actor-acted-in-linkedmdb)
