@@ -27,4 +27,6 @@ command:
 
     $> ./fuski-server --update --loc=PATH_OF_GITHUB_CLONE/database /ds
 
+Beware of blanks or tilde characters in the path to the database as Java does 
+not seem to support them.
 
