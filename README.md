@@ -25,7 +25,7 @@ application. Fuseki can be aquired from the
 After properly unpacking Fuseki, the server can be started with the following 
 command:
 
-    $> ./fuski-server --update --loc=PATH_OF_GITHUB_CLONE/database /ds
+    $> ./fuseki-server --update --loc=PATH_OF_GITHUB_CLONE/database /ds
 
 Beware of blanks or tilde characters in the path to the database as Java does 
 not seem to support them.
