@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/MacPorts 2014_4) (preloaded format=pdflatex 2015.1.4)  6 JAN 2015 13:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/MacPorts 2014_4) (preloaded format=pdflatex 2015.1.4)  6 JAN 2015 13:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -156,23 +156,27 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 15.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 15.
- (./documentation.bbl) [1
+ (./documentation.bbl
+Missing character: There is no â in font cmr9!
+Missing character: There is no € in font cmr9!
+Missing character: There is no “ in font cmr9!
+) [1
 
 {/opt/local/var/db/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./documentation.
 aux) ) 
 Here is how much of TeX's memory you used:
- 686 strings out of 494973
- 7747 string characters out of 6179053
+ 687 strings out of 494973
+ 7768 string characters out of 6179053
  63134 words of memory out of 5000000
- 3980 multiletter control sequences out of 15000+600000
+ 3981 multiletter control sequences out of 15000+600000
  5457 words of font info for 20 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 29i,4n,21p,316b,142s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,4n,21p,364b,142s stack positions out of 5000i,500n,10000p,200000b,80000s
 </opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></opt
 /local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/local
 /share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb>
-Output written on documentation.pdf (1 page, 58974 bytes).
+Output written on documentation.pdf (1 page, 59887 bytes).
 PDF statistics:
  24 PDF objects out of 1000 (max. 8388607)
  16 compressed objects within 1 object stream

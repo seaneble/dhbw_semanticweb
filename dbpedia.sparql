@@ -1,0 +1,13 @@
+PREFIX mo:   <http://www.movieontology.org/2009/10/01/movieontology.owl>
+
+CONSTRUCT { 
+  ?movie mo:title ?title; 
+         mo:hasDirector ?director . 
+}
+WHERE {
+ ?movie a <http://dbpedia.org/ontology/Film> ;
+        <http://purl.org/dc/terms/subject>             <http://dbpedia.org/resource/Category:American_horror_films> ;
+        rdfs:label ?title ;
+        <http://dbpedia.org/ontology/director> ?director . 
+ FILTER ( lang(?title) = "en" )
+}
