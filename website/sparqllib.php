@@ -47,6 +47,32 @@ function _sparql_a_connection( $db )
 	}
 	return $db;
 }
+
+class sparql_builder
+{
+	function create_sparql_query( $query )
+	{
+		if (preg_match("/^'.*'$/", $query))
+		{
+			# use raw query when query is surrounded by single quotes (')
+			return substr($query, 1, strlen($query)-2);
+		}
+
+		$sparql_query = [
+			'SELECT *',
+			'WHERE {'
+		];
+
+		# TODO build custom query
+		$sparql_query[] = '?s ?p ?o';	
+
+		$sparql_query[] = '}';
+
+		# TODO maybe add filter,limit,... here?
+		
+		return implode(' ', $sparql_query);
+	}
+}
 		
 
 #	$timeout = 20;
@@ -67,6 +93,12 @@ class sparql_connection
 		$this->endpoint = $endpoint;
 		global $sparql_last_connection;
 		$sparql_last_connection = $this;
+
+		# configure default namespaces
+		$this->ns("www", "http://www.movieontology.org/2009/11/09/");
+		$this->ns("ontology", "http://dbpedia.org/ontology/");
+		$this->ns("movieontology", "http://www.movieontology.org/2009/10/01/movieontology.owl#");
+		$this->ns("sw", "https://github.com/seaneble/dhbw_semanticweb#");
 	}
 
 	function ns( $short, $long )
