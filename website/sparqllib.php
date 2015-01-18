@@ -125,6 +125,10 @@ class sparql_connection
 		}
 		$output = $this->dispatchQuery( $prefixes.$query, $timeout );
 		if( $this->errno ) { return; }
+		
+		# Include XSLT
+		$output = str_replace('<?xml version="1.0"?>', '<?xml version="1.0"?>' . "\n" . '<?xml-stylesheet type="text/xsl" href="semanticweb.xsl"?>', $output);
+		
 		$parser = new xx_xml($output, 'contents');
 		if( $parser->error() ) 
 		{ 
