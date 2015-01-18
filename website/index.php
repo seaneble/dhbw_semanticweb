@@ -7,14 +7,14 @@ $builder = new sparql_builder();
 if ($urlParam = isset($_GET['query'])) {
     $query = $_GET['query'];
 } else {
-    $query = 'PREFIX plants: <http://www.linkeddatatools.com/plants> SELECT * WHERE { ?name plants:family ?family}';
+    $query = "'" . 'PREFIX plants: <http://www.linkeddatatools.com/plants> SELECT * WHERE { ?name plants:family ?family}' . "'";
 }
 
 $sparql_query = $builder->create_sparql_query($query);
 $result = $db->query($sparql_query);
-$xml = $db->dispatchQuery($query);
+$xml = $db->dispatchQuery($sparql_query);
 
-if ($xml = '<?xml version="1.0"?>
+if ($xml == '<?xml version="1.0"?>
 <sparql xmlns="http://www.w3.org/2005/sparql-results#">
   <head>
     <variable name="name"/>
@@ -30,7 +30,6 @@ if ($xml = '<?xml version="1.0"?>
 }
 
 $objXml = simplexml_load_string($xml);
-var_dump($objXml);exit;
 
 ?>
 
@@ -51,11 +50,11 @@ var_dump($objXml);exit;
         <h1>Movie Query Engine</h1>
         <form method="get">
             <div class="formbody">
-                <input name="query" type="search" required placeholder="Enter SPARQL here"<?php if ($results): ?> value="<?php echo $query; ?>"<?php endif; ?>>
+                <input name="query" type="search" required placeholder="Enter SPARQL here"<?php if (!$empty): ?> value="<?php echo $query; ?>"<?php endif; ?>>
                 <input type="submit" value="Query">
             </div>
         </form>
-<?php if (isset($result)): ?>
+<?php if (!$empty && isset($result)): ?>
 <?php $fields = $result->field_array(); ?>
         <div class="results">
             <h2>Results (<?php echo $result->num_rows(); ?>)</h2>
