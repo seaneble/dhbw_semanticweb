@@ -128,10 +128,14 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
     <!--
     <xsl:variable name="query">SELECT%20%28%3C<xsl:value-of select="."/>%3E%20AS%20%3Fsubject%29%20%3Fpredicate%20%3Fobject%20%7B%3C<xsl:value-of select="."/>%3E%20%3Fpredicate%20%3Fobject%20%7D</xsl:variable>
     -->
+    <!--
      <xsl:variable name="query">SELECT%20%28%3C<xsl:value-of select="$x"/>%3E%20AS%20%3Fsubject%29%20%3Fpredicate%20%3Fobject%20%7B%3C<xsl:value-of select="$x"/>%3E%20%3Fpredicate%20%3Fobject%20%7D</xsl:variable>
+    -->
+     <xsl:variable name="query"><xsl:value-of select="$x"/></xsl:variable>
     <xsl:text>&lt;</xsl:text>
-    <a href="?query={$query}&amp;output=xml&amp;stylesheet=%2Fxml-to-html-links.xsl">
-    <xsl:value-of select="."/>
+    <!--<a href="?query={$query}&amp;output=xml&amp;stylesheet=%2Fxml-to-html-links.xsl">-->
+    <a href="?query={$query}">
+    <xsl:value-of select="$x"/>
     </a>
     <xsl:text>&gt;</xsl:text>
   </xsl:template>
