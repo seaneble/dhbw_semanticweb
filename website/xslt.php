@@ -1,4 +1,11 @@
-<?xml version="1.0"?>
+<?php
+
+header('Content-type: text/xsl');
+
+if ($urlParam = isset($_GET['query'])) {
+    $query = $_GET['query'];
+}
+echo '<?xml version="1.0"?>
 
 <!--
 
@@ -163,7 +170,11 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
         <h1>Movie Query Engine</h1>
         <form method="get">
             <div class="formbody">
-                <input name="query" type="search" required="required" placeholder="Enter SPARQL here" />
+                <input name="query" type="search" required="required" placeholder="Enter SPARQL here"';
+/*if ($urlParam) {
+    echo ' value="' . htmlspecialchars($query) . '"';
+}*/
+echo ' />
                 <input type="submit" value="Query" />
             </div>
         </form>
@@ -191,3 +202,4 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
     </html>
   </xsl:template>
 </xsl:stylesheet>
+'; ?>
