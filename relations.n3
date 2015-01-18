@@ -1,0 +1,9 @@
+@prefix www: <http://www.movieontology.org/2009/11/09/> .
+@prefix ontology: <http://dbpedia.org/ontology/> .
+@prefix movieontology: <http://www.movieontology.org/2009/10/01/movieontology.owl#> .
+@prefix sw: <https://github.com/seaneble/dhbw_semanticweb#> .
+
+sw:leonardo-di-caprio movieontology:isActorIn sw:titanic .
+sw:leonardo-di-caprio movieontology:isActorIn sw:the-great-gatsby .
+
+sw:kate-winslet movieontology:isActressIn sw:titanic .
