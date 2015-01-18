@@ -66,13 +66,13 @@ class sparql_builder
 			"	{".
 			"		?uri a www:Movie .".
 			"		?uri movieontology:title ?desc .".
-			"		?uri movieontology:hasActor|movieontology:hasActress ?actor .".
+			"		?uri movieontology:hasActor ?actor .".
 			"	}".
 			"	UNION".
 			"	{".
 			"		?uri a ontology:Actor .".
 			"		?uri movieontology:name ?desc .".
-			"		?uri movieontology:isActorin|movieontology:isActressIn ?movie .".
+			"		?uri movieontology:isActorIn ?movie .".
 			"	}".
 			"	?uri a ?type .".
 			"	filter ( regex(str(?type), \"#(Actor|Movie)\" )) .".
