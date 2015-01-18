@@ -13,8 +13,6 @@
     
 	<movieontology:Movie rdf:about="&project;Titanic">
 		<movieontology:title>Titanic</movieontology:title>
-		<movieontology:hasActor rdf:resource="&project;Leonardo-DiCaprio" />
-		<movieontology:hasActress rdf:resource="&project;Kate-Winslet" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;The-Great-Gatsby">
