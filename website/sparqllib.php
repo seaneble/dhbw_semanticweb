@@ -58,17 +58,18 @@ class sparql_builder
 			return substr($query, 1, strlen($query)-2);
 		}
 
-		$sparql_query = [
-			'SELECT *',
-			'WHERE {'
+		$sparql_query =  [
+			"PREFIX www: <http://www.movieontology.org/2009/11/09/>".
+			"PREFIX ontology: <http://dbpedia.org/ontology/>".
+			"PREFIX movieontology: <http://www.movieontology.org/2009/10/01/movieontology.owl#>".
+			"SELECT ?uri ?type ?desc WHERE {".
+			"	{?uri a www:Movie} UNION {?uri a ontology:Actor} .".
+			"	{?uri movieontology:title ?desc} UNION {?uri movieontology:name ?desc} .".
+			"	?uri a ?type .".
+			"	filter ( regex(str(?type), \"#(Actor|Movie)\" )) .".
+			"	filter ( regex(str(?desc), \"".$query."\" )) .".
+			"}"
 		];
-
-		# TODO build custom query
-		$sparql_query[] = '?s ?p ?o';	
-
-		$sparql_query[] = '}';
-
-		# TODO maybe add filter,limit,... here?
 		
 		return implode(' ', $sparql_query);
 	}
