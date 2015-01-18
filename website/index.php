@@ -1,40 +1,18 @@
 <?php
 
-header('Content-type: text/xsl');
-
 require_once("sparqllib.php");
 $db = sparql_connect("http://localhost:3030/ds/query");
 $builder = new sparql_builder();
 
 if ($urlParam = isset($_GET['query'])) {
     $query = $_GET['query'];
+    $sparql_query = $builder->create_sparql_query($query);
+    $result = $db->query($sparql_query);
+    $xml = $db->dispatchQuery($sparql_query, 3, urlencode($query));
+    header('Content-type: text/xsl');
+    echo $xml;
 } else {
-    $query = "'" . 'PREFIX plants: <http://www.linkeddatatools.com/plants> SELECT * WHERE { ?name plants:family ?family}' . "'";
-}
-
-$sparql_query = $builder->create_sparql_query($query);
-$result = $db->query($sparql_query);
-$xml = $db->dispatchQuery($sparql_query, 3, urlencode($query));
-
-if ($xml == '<?xml version="1.0"?>
-<sparql xmlns="http://www.w3.org/2005/sparql-results#">
-  <head>
-    <variable name="name"/>
-    <variable name="family"/>
-  </head>
-  <results>
-  </results>
-</sparql>
-') {
-    $empty = true;
-} else {
-    $empty = false;
-}
-
-echo $xml;
-
-if (false):
-
+    header('Content-type: text/html');
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +36,8 @@ if (false):
                 <input type="submit" value="Query">
             </div>
         </form>
+
+<?php } if (0): ?>
 <?php if (!$empty && isset($result)): ?>
 <?php $fields = $result->field_array(); ?>
         <div class="results">
