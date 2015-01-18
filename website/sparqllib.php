@@ -62,9 +62,18 @@ class sparql_builder
 			"PREFIX www: <http://www.movieontology.org/2009/11/09/>".
 			"PREFIX ontology: <http://dbpedia.org/ontology/>".
 			"PREFIX movieontology: <http://www.movieontology.org/2009/10/01/movieontology.owl#>".
-			"SELECT ?uri ?type ?desc WHERE {".
-			"	{?uri a www:Movie} UNION {?uri a ontology:Actor} .".
-			"	{?uri movieontology:title ?desc} UNION {?uri movieontology:name ?desc} .".
+			"SELECT DISTINCT * WHERE {".
+			"	{".
+			"		?uri a www:Movie .".
+			"		?uri movieontology:title ?desc .".
+			"		?uri movieontology:hasActor|movieontology:hasActress ?actor .".
+			"	}".
+			"	UNION".
+			"	{".
+			"		?uri a ontology:Actor .".
+			"		?uri movieontology:name ?desc .".
+			"		?uri movieontology:isActorin|movieontology:isActressIn ?movie .".
+			"	}".
 			"	?uri a ?type .".
 			"	filter ( regex(str(?type), \"#(Actor|Movie)\" )) .".
 			"	filter ( regex(str(?desc), \"".$query."\" )) .".
