@@ -9,7 +9,9 @@ if ($urlParam = isset($_GET['query'])) {
     $sparql_query = $builder->create_sparql_query($query);
     $result = $db->query($sparql_query);
     $xml = $db->dispatchQuery($sparql_query, 3, urlencode($query));
-    header('Content-type: text/xsl');
+    # Führt zu Download statt Anzeige
+//    header('Content-type: application/sparql-results+xml');
+    header('Content-type: application/xml');
     echo $xml;
 } else {
     header('Content-type: text/html');
