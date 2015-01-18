@@ -1,5 +1,7 @@
 <?php
 
+header('Content-type: text/xsl');
+
 require_once("sparqllib.php");
 $db = sparql_connect("http://localhost:3030/ds/query");
 $builder = new sparql_builder();
@@ -12,7 +14,7 @@ if ($urlParam = isset($_GET['query'])) {
 
 $sparql_query = $builder->create_sparql_query($query);
 $result = $db->query($sparql_query);
-$xml = $db->dispatchQuery($sparql_query);
+$xml = $db->dispatchQuery($sparql_query, 3, urlencode($query));
 
 if ($xml == '<?xml version="1.0"?>
 <sparql xmlns="http://www.w3.org/2005/sparql-results#">
@@ -29,7 +31,9 @@ if ($xml == '<?xml version="1.0"?>
     $empty = false;
 }
 
-$objXml = simplexml_load_string($xml);
+echo $xml;
+
+if (false):
 
 ?>
 
@@ -80,3 +84,4 @@ $objXml = simplexml_load_string($xml);
 <?php endif; ?>
     </body>
 </html>
+<?php endif; ?>

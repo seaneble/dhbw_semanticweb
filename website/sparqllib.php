@@ -126,9 +126,6 @@ class sparql_connection
 		$output = $this->dispatchQuery( $prefixes.$query, $timeout );
 		if( $this->errno ) { return; }
 		
-		# Include XSLT
-		$output = str_replace('<?xml version="1.0"?>', '<?xml version="1.0"?>' . "\n" . '<?xml-stylesheet type="text/xsl" href="semanticweb.xsl"?>', $output);
-		
 		$parser = new xx_xml($output, 'contents');
 		if( $parser->error() ) 
 		{ 
@@ -148,7 +145,7 @@ class sparql_connection
 		return true;
 	}	
 
-	function dispatchQuery( $sparql, $timeout=null )
+	function dispatchQuery( $sparql, $timeout=null, $query=null )
 	{
 		$url = $this->endpoint."?query=".urlencode( $sparql );
 		if( $this->params !== null )
@@ -190,6 +187,9 @@ class sparql_connection
 			return;
 		}
 		curl_close($ch);
+		
+		# Include XSLT
+		$output = str_replace('<?xml version="1.0"?>', '<?xml version="1.0"?>' . "\n" . '<?xml-stylesheet type="text/xsl" href="xslt.php?query=' . $query . '"?>', $output);
 
 		return $output;
 	}
