@@ -59,24 +59,31 @@ class sparql_builder
 		}
 
 		$sparql_query =  [
-			"PREFIX www: <http://www.movieontology.org/2009/11/09/>".
-			"PREFIX ontology: <http://dbpedia.org/ontology/>".
-			"PREFIX movieontology: <http://www.movieontology.org/2009/10/01/movieontology.owl#>".
-			"SELECT DISTINCT * WHERE {".
-			"	{".
-			"		?uri a www:Movie .".
-			"		?uri movieontology:title ?desc .".
-			"		?uri movieontology:hasActor ?actor .".
-			"	}".
-			"	UNION".
-			"	{".
-			"		?uri a ontology:Actor .".
-			"		?uri movieontology:name ?desc .".
-			"		?uri movieontology:isActorIn ?movie .".
-			"	}".
-			"	?uri a ?type .".
-			"	filter ( regex(str(?type), \"#(Actor|Movie)\" )) .".
-			"	filter ( regex(str(?desc), \"".$query."\" )) .".
+			"PREFIX www: <http://www.movieontology.org/2009/11/09/>",
+			"PREFIX ontology: <http://dbpedia.org/ontology/>",
+			"PREFIX movieontology: <http://www.movieontology.org/2009/10/01/movieontology.owl#>",
+			"SELECT DISTINCT * WHERE {",
+			"	{",
+			"		?uri a www:Movie .",
+			"		?uri movieontology:title ?desc .",
+			"       ?uri movieontology:belongsToGenre ?genre .",
+			"		?uri movieontology:hasActor ?actor .",
+			"	}",
+			"	UNION",
+			"	{",
+			"		?uri a ontology:Actor .",
+			"		?uri movieontology:name ?desc .",
+			"       ?uri ontology:birthDate ?birthDate .",
+			"		?uri movieontology:isActorIn ?movie .",
+			"	}",
+			"   UNION",
+			"   {",
+			"		?uri a www:Genre .",
+			"		?uri movieontology:name ?desc .",
+			"   }",
+			"	?uri a ?type .",
+			"	filter ( regex(str(?type), \"#(Actor|Movie|Genre)\" )) .",
+			"	filter ( regex(str(?desc), \"".$query."\" )) .",
 			"}"
 		];
 		
