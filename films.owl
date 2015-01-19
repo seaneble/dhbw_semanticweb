@@ -7,49 +7,65 @@
 <rdf:RDF
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:movieontology="http://www.movieontology.org/2009/10/01/movieontology.owl#">
+    xmlns:movieontology="http://www.movieontology.org/2009/10/01/movieontology.owl#"
+    xmlns:db="http://dbpedia.org/ontology/">
     
     <!-- Movies -->
     
 	<movieontology:Movie rdf:about="&project;Iron+Man">
 		<movieontology:title>Iron Man</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;The+Incredible+Hulk">
 		<movieontology:title>The Incredible Hulk</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;Iron+Man+2">
 		<movieontology:title>Iron Man 2</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;Thor">
 		<movieontology:title>Thor</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;Captain+America:+The+First+Avenger">
 		<movieontology:title>Captain America: The First Avenger</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;Marvel's+The+Avengers">
 		<movieontology:title>Marvel's The Avengers</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;Iron+Man+3">
 		<movieontology:title>Iron Man 3</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;Thor:+The+Dark+World">
 		<movieontology:title>Thor: The Dark World</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;Captain+America:+The+Winter+Soldier">
 		<movieontology:title>Captain America: The Winter Soldier</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
     
 	<movieontology:Movie rdf:about="&project;Guardians+of+the+Galaxy">
 		<movieontology:title>Guardians of the Galaxy</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Action" />
 	</movieontology:Movie>
+    
+	<!--<movieontology:Movie rdf:about="&project;">
+		<movieontology:title></movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;" />
+	</movieontology:Movie>-->
 	
 	<!-- Actors -->
 	
@@ -59,6 +75,7 @@
     	<movieontology:isActorIn rdf:resource="&project;Iron+Man+2" />
     	<movieontology:isActorIn rdf:resource="&project;Marvel's+The+Avengers" />
     	<movieontology:isActorIn rdf:resource="&project;Iron+Man+3" />
+    	<db:birthDate>1965-04-04</db:birthDate>
 	</movieontology:Actor>
 	
 	<movieontology:Actor rdf:about="&project;Clark-Gregg">
@@ -95,5 +112,11 @@
     	<movieontology:name></movieontology:name>
     	<movieontology:isActressIn rdf:resource="&project;" />
 	</movieontology:Actor>-->
+	
+	<!-- Genres -->
+	
+	<movieontology:Genre rdf:about="&project;Action">
+    	<movieontology:name>Action</movieontology:name>
+	</movieontology:Genre>
 
 </rdf:RDF>
