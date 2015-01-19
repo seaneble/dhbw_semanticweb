@@ -21,14 +21,7 @@ if ($urlParam = isset($_GET['query'])) {
 <html>
     <head>
         <title>Semantic Search</title>
-        <style type="text/css">
-            body { font-family: sans-serif; }
-            form { overflow: auto; }
-            input { font-size: 120%; float: left; display: block; }
-            input[type=search] { width: 90%; padding: 5px; border: 2px solid rgba(146, 178, 193, 1); height: 35px; }
-            input[type=submit] { width: 9%; height: 35px; background-color: rgba(146, 178, 193, 1); border: none; color: #fff; }
-            h1, h2 { font-weight: normal; }
-        </style>
+        <link rel="stylesheet" type="text/css" media="all" href="search.css">
     </head>
     <body>
         <h1>Movie Query Engine</h1>

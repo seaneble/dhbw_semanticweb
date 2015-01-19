@@ -5,7 +5,9 @@ header('Content-type: text/xsl');
 if ($urlParam = isset($_GET['query'])) {
     $query = $_GET['query'];
 }
-echo '<?xml version="1.0"?>
+echo '<?xml version="1.0"?>';
+
+?>
 
 <!--
 
@@ -161,30 +163,17 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
       <head>
         <title>Semantic Search</title>
-        <style type="text/css">
-            body { font-family: sans-serif; }
-            form { overflow: auto; }
-            input { font-size: 120%; float: left; display: block; }
-            input[type=search] { width: 90%; padding: 5px; border: 2px solid rgba(146, 178, 193, 1); height: 35px; }
-            input[type=submit] { width: 9%; height: 35px; background-color: rgba(146, 178, 193, 1); border: none; color: #fff; }
-            h1, h2 { font-weight: normal; }
-        </style>
+        <link rel="stylesheet" type="text/css" media="all" href="search.css" />
       </head>
       <body>
         <h1>Movie Query Engine</h1>
         <form method="get">
             <div class="formbody">
-                <input name="query" type="search" required="required" placeholder="Enter SPARQL here"';
-/*if ($urlParam) {
-    echo ' value="' . htmlspecialchars($query) . '"';
-}*/
-echo ' />
+                <input name="query" type="search" required="required" placeholder="Enter SPARQL here"<?php if (isset($urlParam)) { echo ' value="' . htmlspecialchars($query) . '"'; } ?> />
                 <input type="submit" value="Query" />
             </div>
         </form>
-
-
-            <h2>Results</h2>
+        <h2>Results</h2>
 
 	<xsl:if test="res:head/res:link">
 	  <xsl:call-template name="header"/>
@@ -206,4 +195,3 @@ echo ' />
     </html>
   </xsl:template>
 </xsl:stylesheet>
-'; ?>
