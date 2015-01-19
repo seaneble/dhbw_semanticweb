@@ -22,8 +22,8 @@ therefore required to install this software before trying to use the
 application. Fuseki can be aquired from the 
 [project website](http://jena.apache.org/download/index.cgi).
 
-After properly unpacking Fuseki, move or copy the ''lib'' folder from Jena into 
-the Fuseki root folder.
+After properly unpacking Fuseki, move or copy the ```lib``` folder from Jena 
+into the Fuseki root folder.
 Fuseki needs a configuration file, which is given as a 
 [template](fusekiconf.ttl) within the project directory. Please copy this to the
 Fuseki root directory (relative paths do not seem to work) and change line 43 to
