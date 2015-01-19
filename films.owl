@@ -66,6 +66,16 @@
 		<movieontology:title></movieontology:title>
 		<movieontology:belongsToGenre rdf:resource="&project;" />
 	</movieontology:Movie>-->
+    
+	<movieontology:Movie rdf:about="&project;Titanic">
+		<movieontology:title>Titanic</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Romance" />
+	</movieontology:Movie>
+    
+	<movieontology:Movie rdf:about="&project;The-Great-Gatsby">
+		<movieontology:title>The Great Gatsby</movieontology:title>
+		<movieontology:belongsToGenre rdf:resource="&project;Drama" />
+	</movieontology:Movie>
 	
 	<!-- Actors -->
 	
@@ -94,6 +104,7 @@
     	<movieontology:isActorIn rdf:resource="&project;Captain+America:+The+First+Avenger" />
     	<movieontology:isActorIn rdf:resource="&project;Marvel's+The+Avengers" />
     	<movieontology:isActorIn rdf:resource="&project;Captain+America:+The+Winter+Soldier" />
+    	<db:birthDate>1948-12-21</db:birthDate>
 	</movieontology:Actor>
 	
 	<!--<movieontology:Actor rdf:about="&project;">
@@ -106,6 +117,7 @@
     	<movieontology:isActorIn rdf:resource="&project;Iron+Man+2" />
     	<movieontology:isActressIn rdf:resource="&project;Marvel's+The+Avengers" />
     	<movieontology:isActorIn rdf:resource="&project;Captain+America:+The+Winter+Soldier" />
+    	<db:birthDate>1984-11-22</db:birthDate>
 	</movieontology:Actor>
 	
 	<!--<movieontology:Actor rdf:about="&project;">
@@ -113,10 +125,29 @@
     	<movieontology:isActressIn rdf:resource="&project;" />
 	</movieontology:Actor>-->
 	
+	<movieontology:Actor rdf:about="&project;Leonardo-DiCaprio">
+    	<movieontology:name>Leonardo DiCaprio</movieontology:name>
+    	<movieontology:isActorIn rdf:resource="&project;Titanic" />
+    	<movieontology:isActorIn rdf:resource="&project;The-Great-Gatsby" />
+	</movieontology:Actor>
+	
+	<movieontology:Actor rdf:about="&project;Kate-Winslet">
+    	<movieontology:name>Kate Winslet</movieontology:name>
+    	<movieontology:isActressIn rdf:resource="&project;Titanic" />
+	</movieontology:Actor>
+	
 	<!-- Genres -->
 	
 	<movieontology:Genre rdf:about="&project;Action">
     	<movieontology:name>Action</movieontology:name>
+	</movieontology:Genre>
+	
+	<movieontology:Genre rdf:about="&project;Romance">
+    	<movieontology:name>Romance</movieontology:name>
+	</movieontology:Genre>
+	
+	<movieontology:Genre rdf:about="&project;Drama">
+    	<movieontology:name>Drama</movieontology:name>
 	</movieontology:Genre>
 
 </rdf:RDF>

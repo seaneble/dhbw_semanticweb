@@ -1,0 +1,44 @@
+@prefix :        <#> .
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix sdb: <http://jena.hpl.hp.com/2007/sdb#> .
+
+[] rdf:type fuseki:Server ;
+
+ fuseki:services (
+ <#tdb>
+ ) .
+
+# Custom code.
+[] ja:loadClass "com.hp.hpl.jena.tdb.TDB" .
+[] ja:loadClass "com.hp.hpl.jena.sdb.SDB" .
+
+########################################################################
+# TDB
+<#tdb>  rdf:type fuseki:Service ;
+ fuseki:name              "ds" ;             # http://host/inf
+    fuseki:serviceQuery             "query" ;
+    fuseki:serviceQuery             "sparql" ;
+    fuseki:serviceUpdate            "update" ;
+    fuseki:servicePost              "post" ;
+    fuseki:serviceUpload            "upload" ;
+ fuseki:dataset           <#dataset> ;       #select which set to 
+ .                                            #use
+tdb:GraphTDB    rdfs:subClassOf  ja:Model .
+
+<#dataset> rdf:type ja:RDFDataset ;
+ ja:defaultGraph <#model>; 
+ .         
+
+<#model> a ja:InfModel;
+ ja:baseModel <#tdbGraph>;
+ ja:reasoner
+ [ ja:reasonerURL 
+ <http://jena.hpl.hp.com/2003/OWLFBRuleReasoner>];
+ .
+<#tdbGraph> rdf:type tdb:GraphTDB;
+ tdb:location "/.../database/";
+ .

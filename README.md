@@ -22,10 +22,16 @@ therefore required to install this software before trying to use the
 application. Fuseki can be aquired from the 
 [project website](http://jena.apache.org/download/index.cgi).
 
-After properly unpacking Fuseki, the server can be started with the following 
-command:
+After properly unpacking Fuseki, move or copy the ''lib'' folder from Jena into 
+the Fuseki root folder.
+Fuseki needs a configuration file, which is given as a 
+[template](fusekiconf.ttl) within the project directory. Please copy this to the
+Fuseki root directory (relative paths do not seem to work) and change line 43 to
+contain the absolute path to the [database](database) directory of the project.
 
-    $> ./fuseki-server --update --loc=PATH_OF_GITHUB_CLONE/database /ds
+Finally, start the server with the following command:
+
+    $> java -cp lib/jena-sdb-1.5.1.jar:lib/jena-arq-2.12.1.jar:fuseki-server.jar org.apache.jena.fuseki.FusekiCmd --config fusekiconf.ttl
 
 Beware of blanks or tilde characters in the path to the database as Java does 
 not seem to support them.
