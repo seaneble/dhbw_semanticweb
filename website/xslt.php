@@ -84,18 +84,17 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
 	  <xsl:variable name="prevuri" select="normalize-space(preceding-sibling::*[1]/res:binding[@name='uri'])" />
 	  <xsl:choose>
 	    <xsl:when test="$uri != $prevuri">
-	      <p>Neu!</p>
+	      <xsl:call-template name="result-head" />
 	    </xsl:when>
 	    <xsl:otherwise>
-	      <p>Alt</p>
+	      <xsl:call-template name="result-item" />
 	    </xsl:otherwise>
 	  </xsl:choose>
-      <xsl:apply-templates select="."/>
 	</xsl:for-each>
     </div>
   </xsl:template>
-
-  <xsl:template match="res:result">
+  
+  <xsl:template name="result-head">
     <xsl:variable name="current" select="."/>
     <xsl:variable name="type" select="normalize-space($current/res:binding[@name='type'])" />
     <xsl:choose>
@@ -111,11 +110,33 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
     </xsl:choose>
   </xsl:template>
   
+  <xsl:template name="result-item">
+    <xsl:variable name="current" select="."/>
+    <xsl:variable name="type" select="normalize-space($current/res:binding[@name='type'])" />
+    <xsl:choose>
+      <xsl:when test="$type = 'http://www.movieontology.org/2009/10/01/movieontology.owl#Movie'">
+        <xsl:call-template name="actor-item" />
+      </xsl:when>
+      <xsl:when test="$type = 'http://www.movieontology.org/2009/10/01/movieontology.owl#Actor'">
+        <xsl:call-template name="movie-item" />
+      </xsl:when>
+      <xsl:when test="$type = 'http://www.movieontology.org/2009/10/01/movieontology.owl#Genre'">
+        <xsl:call-template name="genre-item" />
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="movie-item">
+    <xsl:variable name="movie" select="normalize-space(./res:binding[@name='movie'])" />
+    <p><xsl:value-of select="$movie" /></p>
+  </xsl:template>
+  
   <xsl:template name="actor-result">
     <xsl:variable name="name" select="normalize-space(./res:binding[@name='desc'])" />
     <div class="result actor">
-      <p><strong><a href="?query={$name}"><xsl:value-of select="$name" /></a></strong> is an actor who was born on <em><xsl:value-of select="normalize-space(./res:binding[@name='birthDate'])" /></em>. He starrs in the movie <xsl:value-of select="./res:binding[@name='movie']" />.</p>
-      
+      <p><strong><a href="?query={$name}"><xsl:value-of select="$name" /></a></strong> is an actor who was born on <em><xsl:value-of select="normalize-space(./res:binding[@name='birthDate'])" /></em>.</p>
+      <h3>Starring in</h3>
+      <xsl:call-template name="movie-item" />
     </div>
   </xsl:template>
   
