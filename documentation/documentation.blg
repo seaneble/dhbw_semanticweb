@@ -3,51 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: documentation.aux
 The style file: splncs.bst
 Database file #1: documentation.bib
-Warning--entry type for "FusekiManual" isn't style-file defined
---line 1 of file documentation.bib
-Warning--empty author in FusekiManual
-Warning--there's no year in FusekiManual
-You can't pop an empty literal stack for entry FusekiManual
-while executing---line 2139 of file splncs.bst
 You've used 2 entries,
             2043 wiz_defined-function locations,
-            489 strings with 3786 characters,
-and the built_in function-call counts, 248 in all, are:
-= -- 14
-> -- 5
+            491 strings with 4072 characters,
+and the built_in function-call counts, 417 in all, are:
+= -- 23
+> -- 39
 < -- 0
-+ -- 3
-- -- 1
-* -- 15
-:= -- 39
-add.period$ -- 1
++ -- 14
+- -- 12
+* -- 34
+:= -- 82
+add.period$ -- 2
 call.type$ -- 2
 change.case$ -- 2
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 12
-empty$ -- 35
-format.name$ -- 1
-if$ -- 52
+cite$ -- 2
+duplicate$ -- 16
+empty$ -- 33
+format.name$ -- 12
+if$ -- 82
 int.to.chr$ -- 0
 int.to.str$ -- 2
-missing$ -- 0
-newline$ -- 11
-num.names$ -- 1
+missing$ -- 1
+newline$ -- 12
+num.names$ -- 2
 pop$ -- 10
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 11
+skip$ -- 5
 stack$ -- 0
 substring$ -- 0
-swap$ -- 2
+swap$ -- 3
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 2
-while$ -- 1
+warning$ -- 0
+while$ -- 2
 width$ -- 3
-write$ -- 18
-(There was 1 error message)
+write$ -- 21

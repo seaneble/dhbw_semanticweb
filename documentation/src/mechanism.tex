@@ -1,9 +1,31 @@
-\section{Semantic Movie Search Webpage}
+\section{Semantic Movie Search Website}
+Part of the given task was to make all the data described in the two previous sections available for user interaction via a website.
+
+We started by defining the relevant functionality of the website in order to build an HTML prototype:
+
+\begin{enumerate}
+\item Search field for user input
+\item Button to send the query to the server
+\item A subsection to display a list of results
+\item If required, a view giving details on a single result
+\end{enumerate}
+
+The websites involves a certain amount of dynamic information, so we decided to use a small server-sided PHP script to take care of any logical decisions. We also integrated a library for SPARQL queries in order to simplify our script. The library acts as an abstraction layer and takes care of many small items such as connecting to the server, checking for errors as well as evaluating and transforming the response from the server. \textbf{citation needed}
 
 \subsection{The Search Interface}
+We constructed a simple markup which includes all items from above listing with HTML 5 and some basic CSS styles. HTML 5 takes care of a placeholder text within the search field to guide the user and also makes sure no empty queries are sent (required form field).
+
+Each time the user makes a request to the website, a PHP script is called to action by the webserver. The script evaluates the current URI and the determines whether a query has been submitted by the user. This is decided based on the presence of the \emph{query} variable.
+
+If the query variable is not present, the script outputs the static HTML content of the search interface with an appropriate HTTP Content-type header.
+
+Otherwise, the value of the query variable is extracted from the URI and used to fetch data from the server. In a first step, the user input is transformed into a SPARQL query, which is then evaluated by the Fuseki server.
 
 \subsection{Query Construction}
 
 \subsection{Response Evaluation}
+The query constructed by the above step is sent to the Fuseki server using the SPARQL abstraction layer as well.
+
+The server returns a SPARQL result within an XML document. The abstraction layer parses this XML structure and inserts an XSL file reference. Our PHP script then sends the resulting new XML structure to the user's browser with an HTTP Content-type of \textit{application/xml}.
 
 % XSL, ...

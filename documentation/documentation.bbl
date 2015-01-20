@@ -4,8 +4,11 @@
 Bouza, A.:
 \newblock Mo – the movie ontology (2010) [Online; 26. Jan. 2010].
 
-\bibitem{FusekiManual}
-:
-\newblock (Fuseki manual)
+\bibitem{dbpedia-swj}
+Lehmann, J., Isele, R., Jakob, M., Jentzsch, A., Kontokostas, D., Mendes, P.N.,
+  Hellmann, S., Morsey, M., van Kleef, P., Auer, S., Bizer, C.:
+\newblock {DBpedia} - a large-scale, multilingual knowledge base extracted from
+  wikipedia.
+\newblock Semantic Web Journal (2014)
 
 \end{thebibliography}
