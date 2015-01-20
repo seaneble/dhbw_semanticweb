@@ -121,7 +121,7 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
         <xsl:call-template name="movie-item" />
       </xsl:when>
       <xsl:when test="$type = 'http://www.movieontology.org/2009/10/01/movieontology.owl#Genre'">
-        <xsl:call-template name="genre-item" />
+        <xsl:call-template name="movie-item" />
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -129,6 +129,11 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
   <xsl:template name="movie-item">
     <xsl:variable name="movie" select="normalize-space(./res:binding[@name='movie'])" />
     <p><xsl:value-of select="$movie" /></p>
+  </xsl:template>
+
+  <xsl:template name="actor-item">
+    <xsl:variable name="actor" select="normalize-space(./res:binding[@name='actor'])" />
+    <p><xsl:value-of select="$actor" /></p>
   </xsl:template>
   
   <xsl:template name="actor-result">
@@ -141,9 +146,21 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
   </xsl:template>
   
   <xsl:template name="movie-result">
+    <xsl:variable name="name" select="normalize-space(./res:binding[@name='desc'])" />
+    <div class="result movie">
+      <p><strong><a href="?query={$name}"><xsl:value-of select="$name" /></a></strong> is a movie of the genre <em><xsl:value-of select="normalize-space(./res:binding[@name='genre'])" /></em>.</p>
+      <h3>Cast</h3>
+      <xsl:call-template name="actor-item" />
+    </div>
   </xsl:template>
   
   <xsl:template name="genre-result">
+    <xsl:variable name="name" select="normalize-space(./res:binding[@name='desc'])" />
+    <div class="result actor">
+      <p><strong><a href="?query={$name}"><xsl:value-of select="$name" /></a></strong> is a movie genre.</p>
+      <h3>Movies</h3>
+      <xsl:call-template name="movie-item" />
+    </div>
   </xsl:template>
 
   <xsl:template match="res:bnode">
