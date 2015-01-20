@@ -33,7 +33,7 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
 
 -->
 
-<xsl:stylesheet version="1.0"
+<xsl:stylesheet version="2.0"
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:res="http://www.w3.org/2005/sparql-results#"
@@ -79,15 +79,6 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
 
   <xsl:template name="vb-result">
     <div class="results">
-	<xsl:text>
-	</xsl:text>
-<!--	<tr>
-	  <xsl:for-each select="res:head/res:variable">
-	    <th><xsl:value-of select="@name"/></th>
-	  </xsl:for-each>
-	</tr>-->
-	<xsl:text>
-	</xsl:text>
 	<xsl:for-each select="res:results/res:result">
       <xsl:apply-templates select="."/>
 	</xsl:for-each>
@@ -111,8 +102,9 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
   </xsl:template>
   
   <xsl:template name="actor-result">
+    <xsl:variable name="name" select="normalize-space(./res:binding[@name='desc'])" />
     <div class="result actor">
-      <p><strong><xsl:value-of select="./res:binding[@name='desc']" /></strong> is an actor who was born on <em><xsl:value-of select="normalize-space(./res:binding[@name='birthDate'])" /></em>. He starrs in the movie <xsl:value-of select="./res:binding[@name='movie']" />.</p>
+      <p><strong><a href="?query={$name}"><xsl:value-of select="$name" /></a></strong> is an actor who was born on <em><xsl:value-of select="normalize-space(./res:binding[@name='birthDate'])" /></em>. He starrs in the movie <xsl:value-of select="./res:binding[@name='movie']" />.</p>
       
     </div>
   </xsl:template>
