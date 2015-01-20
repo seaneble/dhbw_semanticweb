@@ -1,6 +1,6 @@
 \section{Project Setup}
 Our semantic search application is based on the Apache Jena framework, which is a framework for building applications for the semantic web. %https://jena.apache.org/about_jena/about.html
-It provides the opportunity to store \cite{jena:tdb} and query \cite{jena:arq} data from RDF graphs and perform reasoning based on RDFS or OWL to derive additional knowledge from existing instance data and class descriptions \cite{jena:inference, jena:ontology}. Fuseki, which is one of the components of the Jena framework, offers a REST-based SPARQL endpoint. So our application can send SPARQL queries via HTTP to perform semantic searches on the server \cite{jena:fuseki}.
+It provides the opportunity to store \cite{jena:tdb} and query \cite{jena:arq} data from RDF graphs and perform reasoning based on RDFS or OWL to derive additional knowledge from existing instance data and class descriptions \cite{jena:inference, jena:ontology}. Fuseki, which is one of the components of the Jena framework, offers a REST-based SPARQL endpoint \cite{jena:fuseki}. So our application can send SPARQL queries via HTTP to perform semantic searches on the server.
 
 %https://jena.apache.org/documentation/ontology/ - A common feature of Jena reasoners is that they create a new RDF model which appears to contain the triples that are derived from reasoning as well as the triples that were asserted in the base model.
 
@@ -13,19 +13,14 @@ It provides the opportunity to store \cite{jena:tdb} and query \cite{jena:arq} d
 %https://jena.apache.org/documentation/serving_data/ - Fuseki is a SPARQL server. It provides REST-style SPARQL HTTP Update, SPARQL Query, and SPARQL Update using the SPARQL protocol over HTTP.
 
 
-We use Fuseki as data storage backend for our application. It already contains scripts to add RDF graphs to the knowledge base. After downloading the graph file \textit{movieontology.owl} from \cite{bouza:movieontology}, which represents the movie ontology as introduced in section \ref{sec:ontology}, it can be added to Fuseki using the command
+We use Fuseki as data storage backend for our application. It already contains scripts to add RDF graphs to the knowledge base. After downloading the graph file \textit{movieontology.owl} from \cite{bouza:movieontology}, which represents the movie ontology as introduced in section \ref{sec:ontology}, it can be added to Fuseki using a script file from the Fuseki root folder.
 \begin{lstlisting}[language=bash]
-/path/to/Fuseki/s-post ... movieontology.owl
+s-post http://localhost:3030/ds/data default movieontology.owl
 \end{lstlisting}
 
-To demonstrate the searching capabilities of our application, we add some exemplary instance data in RDF/XML notation.
+To demonstrate the searching capabilities of our application, some exemplary instance data in RDF/XML notation is added, too.
 \begin{lstlisting}[language=bash]
-/path/to/Fuseki/s-post ... films.owl
-\end{lstlisting}
-
-The Fuseki server is started using the command
-\begin{lstlisting}[language=bash]
-/path/to/Fuseki/java ...
+s-post http://localhost:3030/ds/data default films.owl
 \end{lstlisting}
 
 A user can query the semantic database by using a web interface that generates SPARQL queries, which is introduced in the next section.
