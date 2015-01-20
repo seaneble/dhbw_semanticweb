@@ -95,6 +95,7 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
   </xsl:template>
   
   <xsl:template name="result-head">
+    <hr />
     <xsl:variable name="current" select="."/>
     <xsl:variable name="type" select="normalize-space($current/res:binding[@name='type'])" />
     <xsl:choose>
