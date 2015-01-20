@@ -10,7 +10,7 @@ We started by defining the relevant functionality of the website in order to bui
 \item If required, a view giving details on a single result
 \end{enumerate}
 
-The websites involves a certain amount of dynamic information, so we decided to use a small server-sided PHP script to take care of any logical decisions. We also integrated a library for SPARQL queries in order to simplify our script. The library acts as an abstraction layer and takes care of many small items such as connecting to the server, checking for errors as well as evaluating and transforming the response from the server. \textbf{citation needed}
+The website involves a certain amount of dynamic information, so we decided to use a small server-sided PHP script to take care of any logical decisions. We also integrated a library for SPARQL queries in order to simplify our script. The library acts as an abstraction layer and takes care of many small items such as connecting to the server, checking for errors as well as evaluating and transforming the response from the server. \textbf{citation needed}
 
 \subsection{The Search Interface}
 We constructed a simple markup which includes all items from above listing with HTML 5 and some basic CSS styles. HTML 5 takes care of a placeholder text within the search field to guide the user and also makes sure no empty queries are sent (required form field).
@@ -22,14 +22,13 @@ If the query variable is not present, the script outputs the static HTML content
 Otherwise, the value of the query variable is extracted from the URI and used to fetch data from the server. In a first step, the user input is transformed into a SPARQL query, which is then evaluated by the Fuseki server.
 
 \subsection{Query Construction}
-The SPARQL query is constructed based on the input of the user. We send a single query to Fuseki which returns all interesting datasets based on the ontology described in figure \ref{fig:movie-ont}. A search does not necessarily result in a homogenous result set, but can contain URIs for various entities, e.g. movies and actors.
-
-The query approach includes the following steps:
+The SPARQL query is constructed based on the input of the user. A single query is sent to Fuseki which returns all interesting datasets based on the ontology described in figure \ref{fig:movie-ont}. A search does not necessarily result in a homogenous result set, but can contain URIs for various entities, e.g. movies and actors.\\
+Our query approach includes the following steps:
 \begin{description}  
 \item[Extract information]
-Based on the entity, it finds all interesting properties and relations to other entities. The query checks the type of a statement's subject and concludes, based on the movie ontology and stored instance data, that it belongs e.g. to the Movie class. Then it tries to fetch other mandatory or optional relations, e.g. the actors that play in this movie (i.e. Actor class instances that match the predicate introduced in \ref{lst:actor-pred}).
+Based on the entity, the query finds all interesting properties and relations to other entities. The query checks the type of a statement's subject and concludes, based on the movie ontology and stored instance data, that it belongs e.g. to the Movie class. Then it tries to fetch other mandatory or optional relations, e.g. the actors that play in this movie (i.e. Actor class instances that match the predicate introduced in \ref{lst:actor-pred}).
 
-Those relations depend on the subject the query found, i.e. Movie class instances have other dependent relations than Actor instances. The query therefore aggregates all intended class alternatives (Movie, Actor or Genre) and their respective predicates using the UNION statement, which provides the ability to query graph pattern alternatives. %http://www.w3.org/TR/sparql11-query/ 
+Those relations depend on the subject the query found, i.e. Movie class instances have other dependent relations than Actor instances. The query therefore aggregates all intended class alternatives (Movie, Actor or Genre) and their respective predicates using the UNION statement, which provides the ability to query graph pattern alternatives \cite{w3c:sparql}.
 \item[Filter data]
 All found instances at least need to provide a type and a description. Those fields are used to filter the search results of the query. Therefore, the user's input is interpreted as being a regular expression to filter the description field, which can be a movie's title, an actor's name or the name of a particular genre.
 \end{description}
