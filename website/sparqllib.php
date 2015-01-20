@@ -58,26 +58,26 @@ class sparql_builder
 			return substr($query, 1, strlen($query)-2);
 		}
 
-	#	$constraints = [];
-	#	$keyword = $query;
-	#	$parts = preg_split('/\s+/', $query);
-	#	
-	#	foreach ($parts as $part) {
-	#		$pair = explode(':', $part);
-	#		if (count($pair) == 1) {
-	#			$keyword = $pair[0];
-	#		}
-	#		else {
-	#			if (preg_match('/[Gg]enre/', $pair[0])) {
-	#				$constraints[] = "?uri movieontology:belongsToGenre ".$pair[1];
-	#			}
-	#			elseif (preg_match('/[Nn]ame/', $pair[0])) {
-	#				$constraints[]  = "{?uri } UNION {}"
-	#			}
-	#		}
-	#	}
-
-
+		$constraints = [];
+		$keyword = '';
+		$parts = preg_split('/\s+/', $query);
+		
+		foreach ($parts as $part) {
+			$pair = explode(':', $part);
+			if (count($pair) == 1) {
+				# multiple keywords can be given, 
+				# result matches if any of them matches the name|title of a Movie|Actor|Genre
+				$keyword = empty($keyword) ? $pair[0] : $keyword."|".$pair[0];
+			}
+			else {
+				if (preg_match('/[Gg]enre/', $pair[0])) {
+					$constraints['genre'] = "#uri# movieontology:belongsToGenre movieontology:".$pair[1]." .";
+				}
+				elseif (preg_match('/[Nn]ame/', $pair[0])) {
+					$constraints['name']  = "{#uri# movieontology:title \"".$pair[1]."\"} UNION {#uri# movieontology:name \"".$pair[1]."\"}";
+				}
+			}
+		}
 
 		$sparql_query =  [
 			"PREFIX www: <http://www.movieontology.org/2009/11/09/>",
@@ -86,6 +86,8 @@ class sparql_builder
 			"SELECT DISTINCT * WHERE {",
 			"	{",
 			"		?uri a www:Movie .",
+			$this->applyConstraint($constraints, "genre", "?uri"),
+			$this->applyConstraint($constraints, "name", "?uri"),
 			"		?uri movieontology:title ?desc .",
 			"       ?uri movieontology:belongsToGenre ?genre_uri .",
 			"		?genre_uri movieontology:name ?genre .",
@@ -95,6 +97,7 @@ class sparql_builder
 			"	UNION",
 			"	{",
 			"		?uri a ontology:Actor .",
+			$this->applyConstraint($constraints, "name", "?uri"),
 			"		?uri movieontology:name ?desc .",
 			"       OPTIONAL {",
             "           ?uri ontology:birthDate ?birthDate .",
@@ -105,17 +108,27 @@ class sparql_builder
 			"	UNION",
 			"	{",
 			"		?uri a movieontology:Genre .",
+			$this->applyConstraint($constraints, "name", "?uri"),
 			"		?uri movieontology:name ?desc .",
 			"		?uri movieontology:isGenreOf ?movie_uri .",
 			"		?movie_uri movieontology:title ?movie .",
+			$this->applyConstraint($constraints, "genre", "?movie_uri"),
  			"	}",
 			"	?uri a ?type .",
 			"	filter ( regex(str(?type), \"#(Actor|Movie|Genre)\" )) .",
-			"	filter ( regex(str(?desc), \"".$query."\" )) .",
+			"	filter ( regex(str(?desc), \"".$keyword."\" )) .",
 			"}"
 		];
 		
 		return implode(' ', $sparql_query);
+	}
+
+	function applyConstraint( $constraints, $which, $uri )
+	{
+		if (!empty($constraints[$which])) {
+			return preg_replace('/#uri#/', $uri, $constraints[$which]);
+		}
+		return "";
 	}
 }
 		
