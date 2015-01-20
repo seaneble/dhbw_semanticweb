@@ -58,6 +58,27 @@ class sparql_builder
 			return substr($query, 1, strlen($query)-2);
 		}
 
+	#	$constraints = [];
+	#	$keyword = $query;
+	#	$parts = preg_split('/\s+/', $query);
+	#	
+	#	foreach ($parts as $part) {
+	#		$pair = explode(':', $part);
+	#		if (count($pair) == 1) {
+	#			$keyword = $pair[0];
+	#		}
+	#		else {
+	#			if (preg_match('/[Gg]enre/', $pair[0])) {
+	#				$constraints[] = "?uri movieontology:belongsToGenre ".$pair[1];
+	#			}
+	#			elseif (preg_match('/[Nn]ame/', $pair[0])) {
+	#				$constraints[]  = "{?uri } UNION {}"
+	#			}
+	#		}
+	#	}
+
+
+
 		$sparql_query =  [
 			"PREFIX www: <http://www.movieontology.org/2009/11/09/>",
 			"PREFIX ontology: <http://dbpedia.org/ontology/>",
@@ -66,8 +87,10 @@ class sparql_builder
 			"	{",
 			"		?uri a www:Movie .",
 			"		?uri movieontology:title ?desc .",
-			"       ?uri movieontology:belongsToGenre ?genre .",
-			"		?uri movieontology:hasActor ?actor .",
+			"       ?uri movieontology:belongsToGenre ?genre_uri .",
+			"		?genre_uri movieontology:name ?genre ."
+			"		?uri movieontology:hasActor ?actor_uri .",
+			"		?actor_uri movieontology:name ?actor .",
 			"	}",
 			"	UNION",
 			"	{",
@@ -76,13 +99,15 @@ class sparql_builder
 			"       OPTIONAL {",
             "           ?uri ontology:birthDate ?birthDate .",
             "       }",
-			"		?uri movieontology:isActorIn ?movie .",
+			"		?uri movieontology:isActorIn ?movie_uri .",
+			"		?movie_uri movieontology:title ?movie .",
 			"	}",
 			"	UNION",
 			"	{",
 			"		?uri a movieontology:Genre .",
 			"		?uri movieontology:name ?desc .",
-			"		?uri movieontology:isGenreOf ?movie .",
+			"		?uri movieontology:isGenreOf ?movie_uri .",
+			"		?movie_uri movieontology:title ?movie .",
  			"	}",
 			"	?uri a ?type .",
 			"	filter ( regex(str(?type), \"#(Actor|Movie|Genre)\" )) .",
