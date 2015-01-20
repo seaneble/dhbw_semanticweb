@@ -91,7 +91,7 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
 	      <xsl:call-template name="result-item" />
 	    </xsl:when>
 	    <xsl:when test="$uri != $nexturi">
-	      <xsl:call-template name="result-item" />
+	      <xsl:call-template name="result-last" />
 	    </xsl:when>
 	  </xsl:choose>
 	</xsl:for-each>
@@ -130,15 +130,19 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
       </xsl:when>
     </xsl:choose>
   </xsl:template>
+  
+  <xsl:template name="result-last">
+    <xsl:call-template name="result-item" />
+  </xsl:template>
 
   <xsl:template name="movie-item">
     <xsl:variable name="movie" select="normalize-space(./res:binding[@name='movie'])" />
-    <p><a href="?query={$movie}"><xsl:value-of select="$movie" /></a></p>
+    <li><a href="?query={$movie}"><xsl:value-of select="$movie" /></a></li>
   </xsl:template>
 
   <xsl:template name="actor-item">
     <xsl:variable name="actor" select="normalize-space(./res:binding[@name='actor'])" />
-    <p><a href="?query={$actor}"><xsl:value-of select="$actor" /></a></p>
+    <li><a href="?query={$actor}"><xsl:value-of select="$actor" /></a></li>
   </xsl:template>
   
   <xsl:template name="actor-result">
