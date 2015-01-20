@@ -78,42 +78,49 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
 
 
   <xsl:template name="vb-result">
-    <div>
-      <table>
+    <div class="results">
 	<xsl:text>
 	</xsl:text>
-	<tr>
+<!--	<tr>
 	  <xsl:for-each select="res:head/res:variable">
 	    <th><xsl:value-of select="@name"/></th>
 	  </xsl:for-each>
-	</tr>
+	</tr>-->
 	<xsl:text>
 	</xsl:text>
 	<xsl:for-each select="res:results/res:result">
-	  <tr>
-	    <xsl:apply-templates select="."/>
-	  </tr>
+      <xsl:apply-templates select="."/>
 	</xsl:for-each>
-      </table>
     </div>
   </xsl:template>
 
   <xsl:template match="res:result">
     <xsl:variable name="current" select="."/>
-    <xsl:for-each select="/res:sparql/res:head/res:variable">
-      <xsl:variable name="name" select="@name"/>
-      <td>
-	<xsl:choose>
-	  <xsl:when test="$current/res:binding[@name=$name]">
-	    <!-- apply template for the correct value type (bnode, uri, literal) -->
-	    <xsl:apply-templates select="$current/res:binding[@name=$name]"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <!-- no binding available for this variable in this solution -->
-	  </xsl:otherwise>
-	</xsl:choose>
-      </td>
-    </xsl:for-each>
+    <xsl:variable name="type" select="normalize-space($current/res:binding[@name='type'])" />
+    <xsl:choose>
+      <xsl:when test="$type = 'http://www.movieontology.org/2009/10/01/movieontology.owl#Actor'">
+        <xsl:call-template name="actor-result" />
+      </xsl:when>
+      <xsl:when test="$type = 'http://www.movieontology.org/2009/10/01/movieontology.owl#Movie'">
+        <xsl:call-template name="movie-result" />
+      </xsl:when>
+      <xsl:when test="$type = 'http://www.movieontology.org/2009/10/01/movieontology.owl#Genre'">
+        <xsl:call-template name="genre-result" />
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name="actor-result">
+    <div class="result actor">
+      <p><strong><xsl:value-of select="./res:binding[@name='desc']" /></strong> is an actor who was born on <em><xsl:value-of select="normalize-space(./res:binding[@name='birthDate'])" /></em>. He starrs in the movie <xsl:value-of select="./res:binding[@name='movie']" />.</p>
+      
+    </div>
+  </xsl:template>
+  
+  <xsl:template name="movie-result">
+  </xsl:template>
+  
+  <xsl:template name="genre-result">
   </xsl:template>
 
   <xsl:template match="res:bnode">
