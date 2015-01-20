@@ -22,10 +22,38 @@ If the query variable is not present, the script outputs the static HTML content
 Otherwise, the value of the query variable is extracted from the URI and used to fetch data from the server. In a first step, the user input is transformed into a SPARQL query, which is then evaluated by the Fuseki server.
 
 \subsection{Query Construction}
+The SPARQL query is constructed based on the input of the user. We send a single query to Fuseki which returns all interesting datasets based on the ontology described in figure \ref{fig:movie-ont}. A search does not necessarily result in a homogenous result set, but can contain URIs for various entities, e.g. movies and actors.
+
+The query approach includes the following steps:
+\begin{description}  
+\item[Extract information]
+Based on the entity, it finds all interesting properties and relations to other entities. The query checks the type of a statement's subject and concludes, based on the movie ontology and stored instance data, that it belongs e.g. to the Movie class. Then it tries to fetch other mandatory or optional relations, e.g. the actors that play in this movie (i.e. Actor class instances that match the predicate introduced in \ref{lst:actor-pred}).
+
+Those relations depend on the subject the query found, i.e. Movie class instances have other dependent relations than Actor instances. The query therefore aggregates all intended class alternatives (Movie, Actor or Genre) and their respective predicates using the UNION statement, which provides the ability to query graph pattern alternatives. %http://www.w3.org/TR/sparql11-query/ 
+\item[Filter data]
+All found instances at least need to provide a type and a description. Those fields are used to filter the search results of the query. Therefore, the user's input is interpreted as being a regular expression to filter the description field, which can be a movie's title, an actor's name or the name of a particular genre.
+\end{description}
+
+In addition to its URI, connected information is returned based on the entity which was found.\\
+A movie also shows:
+\begin{itemize}
+\item the movie's title
+\item the URI of each genre it belongs to
+\item the URI of each actor
+\end{itemize}
+An actor also shows:
+\begin{itemize}
+\item the actor's name
+\item the URI of each movie he or she is actor in
+\item the actor's birth date (optional)
+\end{itemize}
+A genre also shows:
+\begin{itemize}
+\item the genre's name or description
+\item the URI of each movie that belongs to this genre
+\end{itemize}
 
 \subsection{Response Evaluation}
 The query constructed by the above step is sent to the Fuseki server using the SPARQL abstraction layer as well.
 
 The server returns a SPARQL result within an XML document. The abstraction layer parses this XML structure and inserts an XSL file reference. Our PHP script then sends the resulting new XML structure to the user's browser with an HTTP Content-type of \textit{application/xml}.
-
-% XSL, ...

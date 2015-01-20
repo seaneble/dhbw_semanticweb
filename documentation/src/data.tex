@@ -1,5 +1,10 @@
 \section{Structure and Usage of the Movie Ontology}
-Our semantic search webpage should enable a user to search for movies or other associated artifacts, e.g. a particular genre or a film's most famous actors. Thus an ontology is required which puts all of those things in relation. We decided to adopt an existing ontology, called "MO - the Movie Ontology" \cite{bouza:movieontology}. It makes use of OWL to map movie entities to classes and defines class hierarchies as well as predicates that show their relationship. To describe its elements, it uses other well-known ontologies, e.g. from "DBpedia" \cite{dbpedia-swj}. Although the used ontology provides a lot of entities, only a subset of them is used for the webpage. The following sections introduce the entities that can be searched and their associated predicates. For the sake of readability, the prefix of a complete URI is omitted.
+\label{sec:ontology}
+Our semantic search website should enable a user to search for movies or other associated artifacts, e.g. a particular genre or a film's most famous actors. Thus an ontology is required which puts all of those things in relation.
+
+We decided to adopt an existing ontology, called "MO - the Movie Ontology" \cite{bouza:movieontology}. It makes use of OWL to map movie entities to classes and defines class hierarchies as well as predicates that show their relationship. To describe its elements, it uses other well-known ontologies, e.g. from "DBpedia" \cite{dbpedia-swj}. Although the used ontology provides a lot of entities, only a subset of them is used for the website. 
+
+The following sections introduce the entities that can be searched and some of their associated predicates. For the sake of readability, the prefix of a complete URI is omitted in this documentation, but is used in the ontology.
 
 \subsection{Movie}
 A movie is represented as an OWL class. It is the central element of the ontology. Listing \ref{lst:movie} shows how it is defined in an RDF file that uses RDF/XML notation.
@@ -12,13 +17,13 @@ Most of the other parts of the ontology have a direct or indirect connection to 
 
 \begin{lstlisting}[caption={Exemplary Movie predicate in RDF/XML notation},label={lst:movie-pred}]
 <owl:ObjectProperty rdf:about="&movieontology;belongsToGenre">
-        <rdfs:range rdf:resource="&movieontology;Genre"/>
-        <rdfs:domain rdf:resource="&www;Movie"/>
-    </owl:ObjectProperty>
+    <rdfs:range rdf:resource="&movieontology;Genre"/>
+    <rdfs:domain rdf:resource="&www;Movie"/>
+</owl:ObjectProperty>
 \end{lstlisting}
 
 \subsection{Actor}
-Another important part of the ontology is the OWL class for actors, shown in listing \ref{lst:actor}. It is a base class of Person, which itself is part of DBpedia's ontology. That means every Actor implicitly must be a Person and inherits the properties of a Person, too.
+Another important part of the ontology is the OWL class for actors, shown in listing \ref{lst:actor}. It is a sub class of Person, which itself is part of DBpedia's ontology \textbf{citation}. That means every Actor implicitly is a Person and thus inherits the properties of a Person.
 
 \begin{lstlisting}[caption={OWL Actor Class in RDF/XML notation},label={lst:actor}]
 <owl:Class rdf:about="&ontology;Actor">
@@ -39,6 +44,10 @@ An actor or actress plays in a movie. This is what the predicate in listing \ref
 	<rdfs:domain rdf:resource="&www;Movie"/>
 </owl:ObjectProperty>
 \end{lstlisting}
+
+\subsection{Usage of the Ontology}
+
+Figure \ref{fig:movie-ont} provides an overview of how we utilize the movie ontology in the context of our movie search. Basically we use some of the relationships between the Movie and Actor or Genre entities and some individual properties like the birthDate of an Actor or the title of a Movie.
 
 \begin{figure}[h]
 	\centering
