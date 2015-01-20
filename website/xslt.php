@@ -82,13 +82,17 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
 	<xsl:for-each select="res:results/res:result">
 	  <xsl:variable name="uri" select="normalize-space(./res:binding[@name='uri'])" />
 	  <xsl:variable name="prevuri" select="normalize-space(preceding-sibling::*[1]/res:binding[@name='uri'])" />
+	  <xsl:variable name="nexturi" select="normalize-space(following-sibling::*[1]/res:binding[@name='uri'])" />
 	  <xsl:choose>
 	    <xsl:when test="$uri != $prevuri">
 	      <xsl:call-template name="result-head" />
 	    </xsl:when>
-	    <xsl:otherwise>
+	    <xsl:when test="$uri = $prevuri and $uri = $nexturi">
 	      <xsl:call-template name="result-item" />
-	    </xsl:otherwise>
+	    </xsl:when>
+	    <xsl:when test="$uri != $nexturi">
+	      <xsl:call-template name="result-item" />
+	    </xsl:when>
 	  </xsl:choose>
 	</xsl:for-each>
     </div>
@@ -129,12 +133,12 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
 
   <xsl:template name="movie-item">
     <xsl:variable name="movie" select="normalize-space(./res:binding[@name='movie'])" />
-    <p><xsl:value-of select="$movie" /></p>
+    <p><a href="?query={$movie}"><xsl:value-of select="$movie" /></a></p>
   </xsl:template>
 
   <xsl:template name="actor-item">
     <xsl:variable name="actor" select="normalize-space(./res:binding[@name='actor'])" />
-    <p><xsl:value-of select="$actor" /></p>
+    <p><a href="?query={$actor}"><xsl:value-of select="$actor" /></a></p>
   </xsl:template>
   
   <xsl:template name="actor-result">
@@ -148,8 +152,9 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
   
   <xsl:template name="movie-result">
     <xsl:variable name="name" select="normalize-space(./res:binding[@name='desc'])" />
+    <xsl:variable name="genre" select="normalize-space(./res:binding[@name='genre'])" />
     <div class="result movie">
-      <p><strong><a href="?query={$name}"><xsl:value-of select="$name" /></a></strong> is a movie of the genre <em><xsl:value-of select="normalize-space(./res:binding[@name='genre'])" /></em>.</p>
+      <p><strong><a href="?query={$name}"><xsl:value-of select="$name" /></a></strong> is a movie of the genre <em><a href="?query={$genre}"><xsl:value-of select="$genre" /></a></em>.</p>
       <h3>Cast</h3>
       <xsl:call-template name="actor-item" />
     </div>

@@ -88,7 +88,7 @@ class sparql_builder
 			"		?uri a www:Movie .",
 			"		?uri movieontology:title ?desc .",
 			"       ?uri movieontology:belongsToGenre ?genre_uri .",
-			"		?genre_uri movieontology:name ?genre ."
+			"		?genre_uri movieontology:name ?genre .",
 			"		?uri movieontology:hasActor ?actor_uri .",
 			"		?actor_uri movieontology:name ?actor .",
 			"	}",
