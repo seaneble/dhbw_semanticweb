@@ -80,6 +80,16 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
   <xsl:template name="vb-result">
     <div class="results">
 	<xsl:for-each select="res:results/res:result">
+	  <xsl:variable name="uri" select="normalize-space(./res:binding[@name='uri'])" />
+	  <xsl:variable name="prevuri" select="normalize-space(preceding-sibling::*[1]/res:binding[@name='uri'])" />
+	  <xsl:choose>
+	    <xsl:when test="$uri != $prevuri">
+	      <p>Neu!</p>
+	    </xsl:when>
+	    <xsl:otherwise>
+	      <p>Alt</p>
+	    </xsl:otherwise>
+	  </xsl:choose>
       <xsl:apply-templates select="."/>
 	</xsl:for-each>
     </div>
