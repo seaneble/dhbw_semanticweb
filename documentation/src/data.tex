@@ -2,32 +2,32 @@
 \label{sec:ontology}
 Our semantic search website should enable a user to search for movies or other associated artifacts, e.g. a particular genre or a film's most famous actors. Thus an ontology is required which puts all of those things in relation.
 
-We decided to adopt an existing ontology, called "MO - the Movie Ontology" \cite{bouza:movieontology}. It makes use of OWL to map movie entities to classes and defines class hierarchies as well as predicates that show their relationship. To describe its elements, it uses other well-known ontologies, e.g. from "DBpedia" \cite{dbpedia-swj}. Although the used ontology provides a lot of entities, only a subset of them is used for the website. 
+We decided to adopt an existing ontology, called "MO - the Movie Ontology" \cite{bouza:movieontology}. It makes use of OWL to map movie entities to classes and defines class hierarchies as well as predicates that show their relationship. To describe its elements, it uses other well-known ontologies, e.g. from "DBpedia" \cite{dbpedia-swj}. Although the ontology provides definitions and facts for a lot of entities, only a subset of them is used for the website. 
 
-The following sections introduce the entities that can be searched and some of their associated predicates. For the sake of readability, the prefix of a complete URI is omitted in this documentation, but is used in the ontology.
+The following sections introduce the entities that can be searched and some of their associated predicates. For the sake of readability, the prefix of a complete URI is omitted in this documentation, although it is used in the ontology.
 
 \subsection{Movie}
-A movie is represented as an OWL class. It is the central element of the ontology. Listing \ref{lst:movie} shows how it is defined in an RDF file that uses RDF/XML notation.
+A movie is represented as an OWL class. It is the central element of the ontology. Listing \ref{lst:movie} shows how it is defined in an RDF graph that uses RDF/XML notation.
 
 \begin{lstlisting}[caption={OWL Movie Class in RDF/XML notation},label={lst:movie}]
 <owl:Class rdf:about="&www;Movie"/>.
 \end{lstlisting}
 
-Most of the other parts of the ontology have a direct or indirect connection to it, i.e. a predicate describing their relationship. An example is given in listing \ref{lst:movie-pred}. As a movie usually belongs to one or more genres, this is represented by the predicate belongsToGenre. The range and domain entries define the OWL classes that are used as subject (domain $\rightarrow$ a movie) or object (range $\rightarrow$ a genre) in a statement that uses belongsToGenre as its predicate.
+Most of the other parts of the ontology have a direct or indirect connection to it, i.e. a predicate describing their relationship. An example is given in listing \ref{lst:movie-pred}. As a movie usually belongs to one or more genres, this is represented by the predicate belongsToGenre. The range and domain entries define the OWL classes whose instances are used as subject (domain $\rightarrow$ a movie) or object (range $\rightarrow$ a genre) in a statement that uses belongsToGenre as its predicate.
 
 \begin{lstlisting}[caption={Exemplary Movie predicate in RDF/XML notation},label={lst:movie-pred}]
 <owl:ObjectProperty rdf:about="&movieontology;belongsToGenre">
-    <rdfs:range rdf:resource="&movieontology;Genre"/>
-    <rdfs:domain rdf:resource="&www;Movie"/>
+  <rdfs:range rdf:resource="&movieontology;Genre"/>
+  <rdfs:domain rdf:resource="&www;Movie"/>
 </owl:ObjectProperty>
 \end{lstlisting}
 
 \subsection{Actor}
-Another important part of the ontology is the OWL class for actors, shown in listing \ref{lst:actor}. It is a sub class of Person, which itself is part of DBpedia's ontology \textbf{citation}. That means every Actor implicitly is a Person and thus inherits the properties of a Person.
+Another important part of the ontology is the OWL class for actors, shown in listing \ref{lst:actor}. It is a subclass of Person, which itself is part of DBpedia's ontology \cite{dbpedia:person}. That means every Actor implicitly is a Person and thus inherits the properties of a Person.
 
 \begin{lstlisting}[caption={OWL Actor Class in RDF/XML notation},label={lst:actor}]
 <owl:Class rdf:about="&ontology;Actor">
-	<rdfs:subClassOf rdf:resource="&ontology;Person"/>
+  <rdfs:subClassOf rdf:resource="&ontology;Person"/>
 </owl:Class>
 \end{lstlisting}
 
@@ -39,9 +39,9 @@ An actor or actress plays in a movie. This is what the predicate in listing \ref
 
 \begin{lstlisting}[caption={Exemplary Actor predicate in RDF/XML notation},label={lst:actor-pred}]
 <owl:ObjectProperty rdf:about="&movieontology;hasActor">
-	<rdfs:range rdf:resource="&ontology;Actor"/>
-	<owl:inverseOf rdf:resource="&movieontology;isActorIn"/>
-	<rdfs:domain rdf:resource="&www;Movie"/>
+  <rdfs:range rdf:resource="&ontology;Actor"/>
+  <owl:inverseOf rdf:resource="&movieontology;isActorIn"/>
+  <rdfs:domain rdf:resource="&www;Movie"/>
 </owl:ObjectProperty>
 \end{lstlisting}
 
