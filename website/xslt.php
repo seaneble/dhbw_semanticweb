@@ -226,7 +226,7 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
         <h1>Movie Query Engine</h1>
         <form method="get">
             <div class="formbody">
-                <input name="query" type="search" required="required" placeholder="Search for a movie, actor or genre. Or enter SPARQL directly like 'SELECT […]'"<?php if (isset($urlParam)) { echo ' value="' . str_replace('{', '{{', str_replace('}', '}}', htmlspecialchars($query))) . '"'; } ?> />
+                <input name="query" type="search" placeholder="Search for a movie, actor or genre. Or leave blank for all results."<?php if (isset($urlParam)) { echo ' value="' . str_replace('{', '{{', str_replace('}', '}}', htmlspecialchars($query))) . '"'; } ?> />
                 <input type="submit" value="Query" />
             </div>
         </form>

@@ -25,7 +25,7 @@ if ($urlParam = isset($_GET['query'])) {
         <h1>Movie Query Engine</h1>
         <form method="get">
             <div class="formbody">
-                <input name="query" type="search" required placeholder="Search for a movie, actor or genre. Or enter SPARQL directly like 'SELECT […]'">
+                <input name="query" type="search" placeholder="Search for a movie, actor or genre. Or leave blank for all results.">
                 <input type="submit" value="Query">
             </div>
         </form>
