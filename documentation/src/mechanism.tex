@@ -3,12 +3,12 @@ Part of the given task was to make all the data described in the two previous se
 
 We started by defining the relevant functionality of the website in order to build an HTML prototype:
 
-\begin{enumerate}
+\begin{itemize}
 \item Search field for user input
 \item Button to send the query to the server
 \item A subsection to display a list of results
 \item If required, a view giving details on a single result
-\end{enumerate}
+\end{itemize}
 
 The website involves a certain amount of dynamic information, so we decided to use a small server-sided PHP script to take care of any logical decisions. We also integrated a library for SPARQL queries in order to simplify our script. The library acts as an abstraction layer and takes care of many small items such as connecting to the server, checking for errors as well as evaluating and transforming the response from the server. \textbf{citation needed}
 
@@ -56,3 +56,52 @@ A genre also shows:
 The query constructed by the above step is sent to the Fuseki server using the SPARQL abstraction layer as well.
 
 The server returns a SPARQL result within an XML document. The abstraction layer parses this XML structure and inserts an XSL file reference. Our PHP script then sends the resulting new XML structure to the user's browser with an HTTP Content-type of \textit{application/xml}.
+
+The stylesheet is an extensive document which transforms the SPARQL XML into an entirely different structure for the website. One of the core challenges posed to this stylesheet was a mapping of multiple rows of the SPARQL result into one actual result item. See Listing \ref{lst:sparql-result} for the initial XML.
+
+\begin{lstlisting}[caption={XML extract returned by the server when searching for a movie},label={lst:sparql-result}]
+<result>
+ <binding name="uri">
+  <uri>https://github.com/seaneble/dhbw_semanticweb#Titanic</uri>
+ </binding>
+ <binding name="desc">
+  <literal>Titanic</literal>
+ </binding>
+ <binding name="actor">
+  <literal>Leonardo DiCaprio</literal>
+ </binding>
+ [...]
+</result>
+<result>
+ <binding name="uri">
+  <uri>https://github.com/seaneble/dhbw_semanticweb#Titanic</uri>
+ </binding>
+ <binding name="desc">
+  <literal>Titanic</literal>
+ </binding>
+ <binding name="actor">
+  <literal>Kate Winslet</literal>
+ </binding>
+ [...]
+</result>
+\end{lstlisting}
+
+There are two rows in the result for the same movie, because two different actors are starring in it. We wanted the HTML result to look like one movie entry with a list of actors.
+
+The XSLT loops through all the result and evaluates each result's context to see whether there are previous or following elements of the same type. They are grouped together to form an HTML structure like in Listing \ref{lst:sparql-html}.
+
+\begin{lstlisting}[caption={HTML structure for one movie result},label={lst:sparql-html}]
+<div class="result movie">
+ <p><strong><a href="?query=Titanic">Titanic</a></strong> is a
+ movie of the genre <em><a href="?query=Romance">Romance</a>
+ </em>.</p>
+ <h3>Cast</h3>
+ <ul>
+  <li>
+   <a href="?query=Leonardo DiCaprio">Leonardo DiCaprio</a>
+  </li>
+ </ul>
+</div>
+\end{lstlisting}
+
+Our stylesheet also adds hyperlinks to all kind of data types. The user can navigate e.g. from a genre to a movie and further on to an actor using those hyperlinks. Each hyperlink performs a new search.

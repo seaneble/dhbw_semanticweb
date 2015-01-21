@@ -11,4 +11,39 @@ Lehmann, J., Isele, R., Jakob, M., Jentzsch, A., Kontokostas, D., Mendes, P.N.,
   wikipedia.
 \newblock Semantic Web Journal (2014)
 
+\bibitem{dbpedia:person}
+{n.A.}:
+\newblock About: persona.
+\newblock \url{http://dbpedia.org/ontology/Person} ({n.Y.})
+
+\bibitem{jena:tdb}
+n.A.:
+\newblock {Apache Jena - TDB}.
+\newblock \url{https://jena.apache.org/documentation/tdb/index.html} (n.Y.)
+
+\bibitem{jena:arq}
+n.A.:
+\newblock {Apache Jena - ARQ - A SPARQL Processor for Jena}.
+\newblock \url{https://jena.apache.org/documentation/query/index.html} (n.Y.)
+
+\bibitem{jena:inference}
+n.A.:
+\newblock {Apache Jena - Reasoners and rule engines: Jena inference support}.
+\newblock \url{http://jena.apache.org/documentation/inference/} (n.Y.)
+
+\bibitem{jena:ontology}
+n.A.:
+\newblock {Apache Jena - Jena Ontology API}.
+\newblock \url{https://jena.apache.org/documentation/ontology/} (n.Y.)
+
+\bibitem{jena:fuseki}
+n.A.:
+\newblock {Apache Jena - Fuseki: serving RDF data over HTTP}.
+\newblock \url{https://jena.apache.org/documentation/serving_data/} (n.Y.)
+
+\bibitem{w3c:sparql}
+Harris, S., Seaborne, A., Prud'hommeaux, E.:
+\newblock Sparql 1.1 query language.
+\newblock \url{http://www.w3.org/TR/sparql11-query/} (2013)
+
 \end{thebibliography}
