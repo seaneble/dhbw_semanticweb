@@ -10,7 +10,7 @@ We started by defining the relevant functionality of the website in order to bui
 \item If required, a view giving details on a single result
 \end{itemize}
 
-The website involves a certain amount of dynamic information, so we decided to use a small server-sided PHP script to take care of any logical decisions. We also integrated a library for SPARQL queries in order to simplify our script. The library acts as an abstraction layer and takes care of many small items such as connecting to the server, checking for errors as well as evaluating and transforming the response from the server. \textbf{citation needed}
+The website involves a certain amount of dynamic information, so we decided to use a small server-sided PHP script to take care of any logical decisions. We also integrated a library for SPARQL queries in order to simplify our script. The library acts as an abstraction layer and takes care of many small items such as connecting to the server, checking for errors as well as evaluating and transforming the response from the server. \cite{sparqllib}
 
 \subsection{The Search Interface}
 We constructed a simple markup which includes all items from above listing with HTML 5 and some basic CSS styles. HTML 5 takes care of a placeholder text within the search field to guide the user and also makes sure no empty queries are sent (required form field).
@@ -98,7 +98,8 @@ The XSLT loops through all the result and evaluates each result's context to see
  <h3>Cast</h3>
  <ul>
   <li>
-   <a href="?query=Leonardo DiCaprio">Leonardo DiCaprio</a>
+   <a href="?query=Leonardo+DiCaprio">Leonardo DiCaprio</a>
+   <a href="?query=Kate+Winslet">Kate Winslet</a>
   </li>
  </ul>
 </div>

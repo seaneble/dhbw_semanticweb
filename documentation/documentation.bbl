@@ -1,8 +1,13 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{bouza:movieontology}
 Bouza, A.:
 \newblock Mo – the movie ontology (2010) [Online; 26. Jan. 2010].
+
+\bibitem{rdf-owl}
+n.A.:
+\newblock {Tutorial on the basics of OWL and RDF}.
+\newblock \url{http://www.linkeddatatools.com/introducing-rdfs-owl} (n.Y.)
 
 \bibitem{dbpedia-swj}
 Lehmann, J., Isele, R., Jakob, M., Jentzsch, A., Kontokostas, D., Mendes, P.N.,
@@ -40,6 +45,18 @@ n.A.:
 n.A.:
 \newblock {Apache Jena - Fuseki: serving RDF data over HTTP}.
 \newblock \url{https://jena.apache.org/documentation/serving_data/} (n.Y.)
+
+\bibitem{reasoning}
+Baach, J.:
+\newblock {Using Inference and Reasoning in Fuseki}.
+\newblock
+  \url{https://baach.de/Members/jhb/getting-started-with-jena-fuseki-and-owl-reasoning}
+  (n.Y.)
+
+\bibitem{sparqllib}
+Gutteridge, C.:
+\newblock {The PHP SPARQL library}.
+\newblock \url{http://graphite.ecs.soton.ac.uk/sparqllib/} (2012)
 
 \bibitem{w3c:sparql}
 Harris, S., Seaborne, A., Prud'hommeaux, E.:
