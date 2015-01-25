@@ -121,7 +121,7 @@ class sparql_builder
  			"	}",
 			"	?uri a ?type .",
 			"	filter ( regex(str(?type), \"#(Actor|Movie|Genre)\" )) .",
-			"	filter ( regex(str(?desc), \"".$keywords."\" )) .",
+			"	filter ( regex(str(?desc), \"".$keywords."\", \"i\" )) .",
 			"}"
 		];
 		
