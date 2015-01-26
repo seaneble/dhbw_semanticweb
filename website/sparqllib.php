@@ -52,7 +52,7 @@ class sparql_builder
 {
 	function create_sparql_query( $query )
 	{       
-		preg_match_all('/(\w+\:"[\w\s]+")|([\w:]+)/', $query, $query_components);
+		preg_match_all('/(\w+\:"[\w\s]+")|([\w:\.\',]+)/', $query, $query_components);
 
 		$keywords = "";
 		$constraints = [];
