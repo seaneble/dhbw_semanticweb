@@ -63,7 +63,7 @@ class sparql_builder
 			if (count($pair) == 1) {
 				# multiple keywords can be given, 
 				# result matches if any of them matches the name|title of a Movie|Actor|Genre
-				$keywords = empty($keywords) ? $pair[0] : $keywords."|".$pair[0];
+				$keywords = empty($keywords) ? $pair[0] : $keywords." ".$pair[0];
 			}
 			else {
 				if (preg_match('/[Gg]enre/', $pair[0])) {
@@ -116,8 +116,8 @@ class sparql_builder
 			"		?uri movieontology:isGenreOf ?movie_uri .",
 			"		?movie_uri movieontology:title ?movie .",
 			$this->applyConstraint($constraints, "genre", "?movie_uri"),
-			"		?movie_uri movieontology:hasActor ?actor_uri .",
-			$this->applyConstraint($constraints, "actor", "?actor_uri"),
+//			"		?movie_uri movieontology:hasActor ?actor_uri .",
+//			$this->applyConstraint($constraints, "actor", "?actor_uri"),
  			"	}",
 			"	?uri a ?type .",
 			"	filter ( regex(str(?type), \"#(Actor|Movie|Genre)\" )) .",
@@ -130,10 +130,15 @@ class sparql_builder
 
 	function applyConstraint( $constraints, $which, $uri )
 	{
-		if (!empty($constraints[$which])) {
+		if ($this->isConstraintSet($constraints, $which)) {
 			return preg_replace('/#uri#/', $uri, $constraints[$which]);
 		}
 		return "";
+	}
+
+	function isConstraintSet( $constraints, $which )
+	{
+		return !empty($constraints[$which]);
 	}
 }
 		
