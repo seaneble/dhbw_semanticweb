@@ -80,7 +80,7 @@ class sparql_builder
 			} else {
 				if (preg_match('/[Gg]enre/', $pair[0])) {
 					$raw_genre = str_replace('"', '', $pair[1]);
-					$constraints['genre'] = "#uri# project:belongsToGenre project:".$raw_genre." .";
+					$constraints['genre'] = "#uri# movieontology:belongsToGenre project:".$raw_genre." .";
 				}
 				elseif (preg_match('/[Nn]ame/', $pair[0])) {
 					$constraints['name']  = "{#uri# movieontology:title \"".$pair[1]."\"} UNION {#uri# movieontology:name \"".$pair[1]."\"}";
