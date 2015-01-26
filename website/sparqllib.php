@@ -75,12 +75,12 @@ class sparql_builder
 
 			if (count($pair) == 1) {
 				# multiple keywords can be given, 
-				# result matches if any of them matches the name|title of a Movie|Actor|Genre
+				# result matches if they match the name|title of a Movie|Actor|Genre
 				$keywords .= ' ' . $pair[0];
 			} else {
 				if (preg_match('/[Gg]enre/', $pair[0])) {
 					$raw_genre = str_replace('"', '', $pair[1]);
-					$constraints['genre'] = "#uri# movieontology:belongsToGenre project:".$raw_genre." .";
+					$constraints['genre'] = "#uri# project:belongsToGenre project:".$raw_genre." .";
 				}
 				elseif (preg_match('/[Nn]ame/', $pair[0])) {
 					$constraints['name']  = "{#uri# movieontology:title \"".$pair[1]."\"} UNION {#uri# movieontology:name \"".$pair[1]."\"}";
@@ -91,7 +91,6 @@ class sparql_builder
 			}
 		}
 		$keywords = trim($keywords);
-//		var_dump($keywords, $constraints);exit;
 
 		$sparql_query =  [
 			"PREFIX www: <http://www.movieontology.org/2009/11/09/>",
@@ -99,18 +98,27 @@ class sparql_builder
 			"PREFIX movieontology: <http://www.movieontology.org/2009/10/01/movieontology.owl#>",
 			"PREFIX project: <https://github.com/seaneble/dhbw_semanticweb#>",
 			"SELECT DISTINCT * WHERE {",
-			"	{",
-			"		?uri a www:Movie .",
-			$this->applyConstraint($constraints, "genre", "?uri"),
-			$this->applyConstraint($constraints, "name", "?uri"),
-			"		?uri movieontology:title ?desc .",
-			"       ?uri movieontology:belongsToGenre ?genre_uri .",
-			"		?genre_uri movieontology:name ?genre .",
-			"		?uri movieontology:hasActor ?actor_uri .",
-			$this->applyConstraint($constraints, "actor", "?actor_uri"),
-			"		?actor_uri movieontology:name ?actor .",
-			"	}",
-			"	UNION",
+		];
+
+		if (!$this->isConstraintSet($constraints, "genre")) {
+
+			$sparql_query = array_merge($sparql_query, [
+				"	{",
+				"		?uri a www:Movie .",
+				$this->applyConstraint($constraints, "genre", "?uri"),
+				$this->applyConstraint($constraints, "name", "?uri"),
+				"		?uri movieontology:title ?desc .",
+				"       ?uri movieontology:belongsToGenre ?genre_uri .",
+				"		?genre_uri movieontology:name ?genre .",
+				"		?uri movieontology:hasActor ?actor_uri .",
+				$this->applyConstraint($constraints, "actor", "?actor_uri"),
+				"		?actor_uri movieontology:name ?actor .",
+				"	}",
+				"	UNION"
+			]);
+		}
+
+		$sparql_query = array_merge($sparql_query, [
 			"	{",
 			"		?uri a ontology:Actor .",
 			$this->applyConstraint($constraints, "name", "?uri"),
@@ -131,14 +139,16 @@ class sparql_builder
 			"		?uri movieontology:isGenreOf ?movie_uri .",
 			"		?movie_uri movieontology:title ?movie .",
 			$this->applyConstraint($constraints, "genre", "?movie_uri"),
-			"		?movie_uri movieontology:hasActor ?actor_uri .",
-			$this->applyConstraint($constraints, "actor", "?actor_uri"),
+#			"		?movie_uri movieontology:hasActor ?actor_uri .",
+#			$this->applyConstraint($constraints, "actor", "?actor_uri"),
  			"	}",
 			"	?uri a ?type .",
 			"	filter ( regex(str(?type), \"#(Actor|Movie|Genre)\" )) .",
 			"	filter ( regex(str(?desc), \"".$keywords."\", \"i\" )) .",
 			"}"
-		];
+		]);
+
+		#var_dump($sparql_query); exit;
 		
 		return implode(' ', $sparql_query);
 	}
@@ -153,7 +163,7 @@ class sparql_builder
 
 	function isConstraintSet( $constraints, $which )
 	{
-		return !empty($constraints[$which]);
+		return isset($constraints[$which]);
 	}
 }
 		
