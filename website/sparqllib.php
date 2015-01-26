@@ -51,22 +51,8 @@ function _sparql_a_connection( $db )
 class sparql_builder
 {
 	function create_sparql_query( $query )
-	{
-    	// Split input into parts
-//    	$matches = preg_split("[\s\"']+|\"([^\"]*)\"|'([^']*)'", $query);
-    	
-    	// Loop over parts
-//    	var_dump($matches);exit;
-    	
-        // Check for constraint keyword
-        
-        
-        // Extract constraint from query
-        
-        
-        // Take everything and combine it
-        
-		preg_match_all('/(\w+\:"[\w\s]+")|(\w+)/', $query, $query_components);
+	{       
+		preg_match_all('/(\w+\:"[\w\s]+")|([\w\S]+)/', $query, $query_components);
 
 		$keywords = "";
 		$constraints = [];
@@ -77,6 +63,13 @@ class sparql_builder
 				# multiple keywords can be given, 
 				# result matches if they match the name|title of a Movie|Actor|Genre
 				$keywords .= ' ' . $pair[0];
+			
+			} elseif (!strpos($pair[1], '"')) {
+				# the keyword itself contained a ':' but is not a constraint expression
+				# e.g. Thor: The Dark World
+				# -> concatenate the whole string to the keyword string
+				$keywords .= ' ' . $pair[0] . ':' . $pair[1];
+			
 			} else {
 				if (preg_match('/[Gg]enre/', $pair[0])) {
 					$raw_genre = str_replace('"', '', $pair[1]);
@@ -90,6 +83,8 @@ class sparql_builder
 				}
 			}
 		}
+		
+#		var_dump($keywords);exit;
 		$keywords = trim($keywords);
 
 		$sparql_query =  [
