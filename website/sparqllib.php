@@ -52,7 +52,20 @@ class sparql_builder
 {
 	function create_sparql_query( $query )
 	{
-
+    	// Split input into parts
+//    	$matches = preg_split("[\s\"']+|\"([^\"]*)\"|'([^']*)'", $query);
+    	
+    	// Loop over parts
+//    	var_dump($matches);exit;
+    	
+        // Check for constraint keyword
+        
+        
+        // Extract constraint from query
+        
+        
+        // Take everything and combine it
+        
 		preg_match_all('/(\w+\:"[\w\s]+")|(\w+)/', $query, $query_components);
 
 		$keywords = "";
@@ -63,12 +76,11 @@ class sparql_builder
 			if (count($pair) == 1) {
 				# multiple keywords can be given, 
 				# result matches if any of them matches the name|title of a Movie|Actor|Genre
-				$keywords = empty($keywords) ? $pair[0] : $keywords." ".$pair[0];
-			}
-			else {
+				$keywords .= ' ' . $pair[0];
+			} else {
 				if (preg_match('/[Gg]enre/', $pair[0])) {
 					$raw_genre = str_replace('"', '', $pair[1]);
-					$constraints['genre'] = "#uri# movieontology:belongsToGenre movieontology:".$raw_genre." .";
+					$constraints['genre'] = "#uri# movieontology:belongsToGenre project:".$raw_genre." .";
 				}
 				elseif (preg_match('/[Nn]ame/', $pair[0])) {
 					$constraints['name']  = "{#uri# movieontology:title \"".$pair[1]."\"} UNION {#uri# movieontology:name \"".$pair[1]."\"}";
@@ -78,11 +90,14 @@ class sparql_builder
 				}
 			}
 		}
+		$keywords = trim($keywords);
+//		var_dump($keywords, $constraints);exit;
 
 		$sparql_query =  [
 			"PREFIX www: <http://www.movieontology.org/2009/11/09/>",
 			"PREFIX ontology: <http://dbpedia.org/ontology/>",
 			"PREFIX movieontology: <http://www.movieontology.org/2009/10/01/movieontology.owl#>",
+			"PREFIX project: <https://github.com/seaneble/dhbw_semanticweb#>",
 			"SELECT DISTINCT * WHERE {",
 			"	{",
 			"		?uri a www:Movie .",
@@ -116,8 +131,8 @@ class sparql_builder
 			"		?uri movieontology:isGenreOf ?movie_uri .",
 			"		?movie_uri movieontology:title ?movie .",
 			$this->applyConstraint($constraints, "genre", "?movie_uri"),
-//			"		?movie_uri movieontology:hasActor ?actor_uri .",
-//			$this->applyConstraint($constraints, "actor", "?actor_uri"),
+			"		?movie_uri movieontology:hasActor ?actor_uri .",
+			$this->applyConstraint($constraints, "actor", "?actor_uri"),
  			"	}",
 			"	?uri a ?type .",
 			"	filter ( regex(str(?type), \"#(Actor|Movie|Genre)\" )) .",
