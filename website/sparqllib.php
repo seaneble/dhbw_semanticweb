@@ -52,7 +52,7 @@ class sparql_builder
 {
 	function create_sparql_query( $query )
 	{       
-		preg_match_all('/(\w+\:"[\w\s]+")|([\w\S]+)/', $query, $query_components);
+		preg_match_all('/(\w+\:"[\w\s]+")|([\w:]+)/', $query, $query_components);
 
 		$keywords = "";
 		$constraints = [];
@@ -64,7 +64,7 @@ class sparql_builder
 				# result matches if they match the name|title of a Movie|Actor|Genre
 				$keywords .= ' ' . $pair[0];
 			
-			} elseif (!strpos($pair[1], '"')) {
+			} elseif (strpos($pair[1], '"') === false) {
 				# the keyword itself contained a ':' but is not a constraint expression
 				# e.g. Thor: The Dark World
 				# -> concatenate the whole string to the keyword string
@@ -83,8 +83,9 @@ class sparql_builder
 				}
 			}
 		}
-		
+
 #		var_dump($keywords);exit;
+#		var_dump($constraints);exit;
 		$keywords = trim($keywords);
 
 		$sparql_query =  [
